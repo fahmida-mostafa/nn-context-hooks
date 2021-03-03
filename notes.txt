@@ -105,3 +105,33 @@
         const theme = isLightTheme ? light : dark;
         return ();
     }
+
+### lesson 14 - multiple contexts with cc vs sfc
+
+    class Navbar extends Component {
+        render() { 
+            return ( 
+                <AuthContext.Consumer>{(authContext) => (
+                    <ThemeContext.Consumer>{(themeContext) => {
+                        const { isAuthenticated, toggleAuth } = authContext;
+                        const { isLightTheme, light, dark } = themeContext;
+                        const theme = isLightTheme ? light : dark;    
+                        return ();
+                    }}
+                    </ThemeContext.Consumer>
+                )}
+                </AuthContext.Consumer>
+            );
+        }
+    }
+
+    ---VS---
+
+    const Navbar = () => {
+        const {isLightTheme, light, dark} = useContext(ThemeContext);
+        const { isAuthenticated, toggleAuth } = useContext(AuthContext);
+        const theme = isLightTheme ? light : dark;
+        return ();
+    }
+    
+    export default Navbar;
