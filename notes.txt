@@ -1,0 +1,10 @@
+### lesson 3 - using contextType - class components only
+
+access contextType value via this.context
+
+static contextType = ThemeContext;
+render() { 
+    const { isLightTheme, light, dark } = this.context;
+    const theme = isLightTheme ? light : dark;
+    return ();
+}
