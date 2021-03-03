@@ -1,10 +1,27 @@
-### lesson 3 - using contextType - class components only
+### lesson 3 - using contextType
+- class components only
 
 access contextType value via this.context
 
-static contextType = ThemeContext;
-render() { 
-    const { isLightTheme, light, dark } = this.context;
-    const theme = isLightTheme ? light : dark;
-    return ();
-}
+    static contextType = ThemeContext;
+    
+    render() { 
+        const { isLightTheme, light, dark } = this.context;
+        const theme = isLightTheme ? light : dark;
+        return ();
+    }
+
+### lesson 4 - using Context.Consumer
+- class & functional components
+- allows you to consume multiple contexts in one component
+
+    render() { 
+        return ( 
+            <ThemeContext.Consumer>{(context) => {
+                const { isLightTheme, light, dark } = context;
+                const theme = isLightTheme ? light : dark;    
+                return ();
+            }}
+            </ThemeContext.Consumer>
+        );
+    }
