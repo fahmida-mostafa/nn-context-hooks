@@ -55,7 +55,7 @@
         );
     }
 
-### lesson 7 - multiple contexts
+### lesson 7 - creating multiple contexts
 
     function App() {
         return (
@@ -70,3 +70,19 @@
             </div>
         );
     }
+
+### lesson 8 - consuming multiple contexts
+- you could have one static contextType and have a Consumer for the other context
+- you also just have multiple consumers
+- eventually, we will see how React Hooks makes this even easier
+
+    <AuthContext.Consumer>{(authContext) => (
+        <ThemeContext.Consumer>{(themeContext) => {
+            const { isAuthenticated, toggleAuth } = authContext;
+            const { isLightTheme, light, dark } = themeContext;
+            const theme = isLightTheme ? light : dark;    
+            return ();
+        }}
+        </ThemeContext.Consumer>
+    )}
+    </AuthContext.Consumer>
