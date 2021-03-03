@@ -4,7 +4,7 @@
 access contextType value via this.context
 
     static contextType = ThemeContext;
-    
+
     render() { 
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
@@ -23,5 +23,18 @@ access contextType value via this.context
                 return ();
             }}
             </ThemeContext.Consumer>
+        );
+    }
+
+### lesson 5 - passing a method inside the Provider
+
+    toggleTheme = () => {
+        this.setState({ isLightTheme: !this.state.isLightTheme })
+    }
+    render() { 
+        return (
+            <ThemeContext.Provider value={{ ...this.state, toggleTheme: this.toggleTheme }}>
+                {this.props.children}
+            </ThemeContext.Provider>
         );
     }
