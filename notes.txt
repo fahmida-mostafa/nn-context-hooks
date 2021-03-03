@@ -1,7 +1,23 @@
-### lesson 3 - using contextType
-- class components only
+### lesson 3 - creating a Context
 
-access contextType value via this.context
+    const ThemeContext = createContext();
+
+    class ThemeContextProvider extends Component {
+        state = { ... }
+        render() { 
+            return (
+                <ThemeContext.Provider value={{ ...this.state }}>
+                    {this.props.children}
+                </ThemeContext.Provider>
+            );
+        }
+    }
+
+    export default ThemeContextProvider;
+
+### lesson 4 - using contextType
+- class components only
+- access contextType value via this.context
 
     static contextType = ThemeContext;
 
@@ -11,7 +27,7 @@ access contextType value via this.context
         return ();
     }
 
-### lesson 4 - using Context.Consumer
+### lesson 5 - using Context.Consumer
 - class & functional components
 - allows you to consume multiple contexts in one component
 
@@ -26,7 +42,7 @@ access contextType value via this.context
         );
     }
 
-### lesson 5 - passing a method inside the Provider
+### lesson 6 - passing a method inside the Provider
 
     toggleTheme = () => {
         this.setState({ isLightTheme: !this.state.isLightTheme })
@@ -36,5 +52,21 @@ access contextType value via this.context
             <ThemeContext.Provider value={{ ...this.state, toggleTheme: this.toggleTheme }}>
                 {this.props.children}
             </ThemeContext.Provider>
+        );
+    }
+
+### lesson 7 - multiple contexts
+
+    function App() {
+        return (
+            <div className="App">
+                <ThemeContextProvider>
+                    <AuthContextProvider>
+                        <Navbar />
+                        <BookList />
+                        <ThemeToggle />
+                    </AuthContextProvider>
+                </ThemeContextProvider>
+            </div>
         );
     }
