@@ -128,10 +128,46 @@
     ---VS---
 
     const Navbar = () => {
-        const {isLightTheme, light, dark} = useContext(ThemeContext);
+        const { isLightTheme, light, dark } = useContext(ThemeContext);
         const { isAuthenticated, toggleAuth } = useContext(AuthContext);
         const theme = isLightTheme ? light : dark;
         return ();
     }
     
     export default Navbar;
+
+### lesson 15 - creating context with sfc
+
+    const BookContext = createContext();
+
+    const BookContextProvider = (props) => {
+        const [books, setBooks] = useState([
+            { title: 'name of the wind', id: 1 },
+            { title: 'the way of kings', id: 2 },
+            { title: 'the final empire', id: 3 },
+            { title: 'the hero of ages', id: 4 }
+        ]);
+        return (
+            <BookContext.Provider value={{ books }}>
+                {props.children}
+            </BookContext.Provider>
+        );
+    }
+
+
+    const BookList = () => {
+        const { isLightTheme, light, dark } = useContext(ThemeContext);
+        const { books } = useContext(BookContext);
+        const theme = isLightTheme ? light : dark;
+        return (
+            <div className="book-list" style={{ color: theme.syntax, background: theme.bg }}>
+                <ul>
+                    {books.map(book => {
+                        return (
+                            <li key={book.id} style={{ background: theme.ui }}>{book.title}</li>
+                        )
+                    })}
+                </ul>
+            </div>
+        );
+    }
